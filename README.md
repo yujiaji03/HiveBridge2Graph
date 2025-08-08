@@ -74,18 +74,7 @@ lineage.temp.table.prefixes=tmp_,temp_
 
 配置好Hive Hook后，系统会自动拦截所有Hive查询，提取表间关系并保存到Neo4j。
 
-### 独立使用
 
-也可以通过Main类直接测试表关系创建功能：
-
-```bash
-java -cp target/HiveBridge2Graph-1.0-SNAPSHOT.jar com.yjj.hive.lineage.Main source_table target_table default
-```
-
-参数说明：
-1. 源表名
-2. 目标表名
-3. 数据库名（可选，默认为"default"）
 
 ## Neo4j图模型
 
