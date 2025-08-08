@@ -5,8 +5,7 @@ target/
 
 ### IntelliJ IDEA ###
 .idea/
-/.idea/
-
+.mvn
 ### Eclipse ###
 .apt_generated
 .classpath
