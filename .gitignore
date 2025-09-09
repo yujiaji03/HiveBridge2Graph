@@ -14,7 +14,9 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
+./hive_filter/
+./hive_shuxin/
+./logs/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
