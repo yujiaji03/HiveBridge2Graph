@@ -42,14 +42,13 @@ public class ConfigLoader {
         String neo4jUser = props.getProperty("neo4j.user");
         String neo4jPassword = props.getProperty("neo4j.password");
         String logLevel = props.getProperty("log.level", "INFO");
-        
 
-        
+
         // Spark 配置
         String sparkAppName = props.getProperty("spark.app.name", "HiveBridge2Graph-SQLParser");
         String sparkMaster = props.getProperty("spark.master", "local[1]");
         String sparkSqlWarehouseDir = props.getProperty("spark.sql.warehouse.dir", "/tmp/spark-warehouse");
-        
+
         // OpenLineage 配置
         String openLineageUrl = props.getProperty("openlineage.url", "http://localhost:5000");
         String openLineageNamespace = props.getProperty("openlineage.namespace", "hive-bridge-2-graph");
@@ -59,11 +58,11 @@ public class ConfigLoader {
             throw new IllegalStateException("配置文件缺少必要字段");
         }
 
-        LOG.info("成功加载配置: sqlFolder={}, neo4jUri={}, user={}, logLevel={}, openLineageEnabled={}", 
+        LOG.info("成功加载配置: sqlFolder={}, neo4jUri={}, user={}, logLevel={}, openLineageEnabled={}",
                 sqlFolder, neo4jUri, neo4jUser, logLevel, openLineageEnabled);
-        
+
         return new Config(sqlFolder, neo4jUri, neo4jUser, neo4jPassword, logLevel,
-                         sparkAppName, sparkMaster, sparkSqlWarehouseDir,
-                         openLineageUrl, openLineageNamespace, openLineageEnabled);
+                sparkAppName, sparkMaster, sparkSqlWarehouseDir,
+                openLineageUrl, openLineageNamespace, openLineageEnabled);
     }
 }
