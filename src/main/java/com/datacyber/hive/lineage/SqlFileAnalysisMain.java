@@ -18,28 +18,28 @@ public class SqlFileAnalysisMain {
 
     public static void main(String[] args) {
         LOG.info("=== Hive SQL 血缘分析程序启动 ===");
-
+        
         try {
             // 1. 加载配置
             Config config = loadConfig(args);
-
+            
             // 2. 设置日志级别
             setLogLevel(config.getLogLevel());
-
+            
             // 3. 扫描SQL文件
             List<Path> sqlFiles = SqlFileScanner.scanSqlFiles(config.getSqlFolderPath());
             if (sqlFiles.isEmpty()) {
                 LOG.warn("未发现任何SQL文件，程序退出");
                 return;
             }
-
+            
             // 4. 解析SQL文件，提取血缘关系
             List<SparkCatalystParser.TableLineage> allLineages = new ArrayList<>();
-
+            
             LOG.info("使用 Spark Catalyst 解析器");
             try (SparkCatalystParser catalystParser = new SparkCatalystParser(config)) {
                 LOG.info("Spark Catalyst 解析器初始化成功");
-
+                
                 // 使用 Spark Catalyst 解析器处理文件
                 for (Path sqlFile : sqlFiles) {
                     LOG.info("正在使用 Catalyst 解析文件: {}", sqlFile);
@@ -50,14 +50,14 @@ public class SqlFileAnalysisMain {
                 LOG.error("Spark Catalyst 解析器执行失败: {}", e.getMessage(), e);
                 throw new RuntimeException("SQL解析失败", e);
             }
-
+            
             LOG.info("解析完成，共提取到 {} 条血缘关系", allLineages.size());
-
+            
             if (allLineages.isEmpty()) {
                 LOG.warn("未发现任何INSERT-SELECT血缘关系，程序退出");
                 return;
             }
-
+            
             // 5. 写入Neo4j
             try (Neo4jWriter neo4jWriter = new Neo4jWriter(config.getNeo4jUri(), config.getNeo4jUser(), config.getNeo4jPassword())) {
                 // 测试连接
@@ -67,13 +67,13 @@ public class SqlFileAnalysisMain {
                 } else {
                     LOG.info("Neo4j连接成功");
                 }
-
+                
                 // 批量写入血缘关系
                 LOG.info("发现{}条血缘关系:", allLineages.size());
-                for (SparkCatalystParser.TableLineage lineage : allLineages) {
-                    LOG.info("  {} -> {} (来源文件: {})", lineage.getSourceTables(), lineage.getTargetTable(), lineage.getSourceFile());
-                }
-
+                 for (SparkCatalystParser.TableLineage lineage : allLineages) {
+                     LOG.info("  {} -> {} (来源文件: {})", lineage.getSourceTables(), lineage.getTargetTable(), lineage.getSourceFile());
+                 }
+                
                 if (neo4jConnected) {
                     LOG.info("开始写入{}条血缘关系到Neo4j", allLineages.size());
                     neo4jWriter.writeLineages(allLineages);
@@ -82,9 +82,9 @@ public class SqlFileAnalysisMain {
                     LOG.info("跳过Neo4j写入（连接失败）");
                 }
             }
-
+            
             LOG.info("=== 血缘分析程序执行完成 ===");
-
+            
         } catch (Exception e) {
             LOG.error("程序执行失败", e);
             System.exit(1);
@@ -93,7 +93,6 @@ public class SqlFileAnalysisMain {
 
     /**
      * 加载配置文件
-     *
      * @param args 命令行参数
      * @return 配置对象
      */
@@ -114,7 +113,6 @@ public class SqlFileAnalysisMain {
 
     /**
      * 设置日志级别
-     *
      * @param logLevel 日志级别
      */
     private static void setLogLevel(String logLevel) {

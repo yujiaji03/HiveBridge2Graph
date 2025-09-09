@@ -9,13 +9,14 @@ public class Config {
     private final String neo4jUser;
     private final String neo4jPassword;
     private final String logLevel;
+    
 
-
+    
     // Spark 配置
     private final String sparkAppName;
     private final String sparkMaster;
     private final String sparkSqlWarehouseDir;
-
+    
     // OpenLineage 配置
     private final String openLineageUrl;
     private final String openLineageNamespace;
@@ -57,28 +58,29 @@ public class Config {
     public String getLogLevel() {
         return logLevel;
     }
+    
 
-
+    
     public String getSparkAppName() {
         return sparkAppName;
     }
-
+    
     public String getSparkMaster() {
         return sparkMaster;
     }
-
+    
     public String getSparkSqlWarehouseDir() {
         return sparkSqlWarehouseDir;
     }
-
+    
     public String getOpenLineageUrl() {
         return openLineageUrl;
     }
-
+    
     public String getOpenLineageNamespace() {
         return openLineageNamespace;
     }
-
+    
     public boolean isOpenLineageEnabled() {
         return openLineageEnabled;
     }

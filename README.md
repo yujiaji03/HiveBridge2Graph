@@ -203,7 +203,7 @@ lineage.neo4j.username=neo4j
 lineage.neo4j.password=your_password
 
 # SQL文件扫描配置
-lineage.scan.default.directory=D:\\Users\\Administrator\\Desktop\\
+lineage.scan.default.directory=D:\\Users\\Administrator\\Desktop\\湖南高速\\联网迁移\\hive\\
 lineage.scan.file.extensions=.sql,.hsql
 lineage.scan.thread.pool.size=0
 
